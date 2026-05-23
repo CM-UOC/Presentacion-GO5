@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Proyecto - Estudio de Mercado Internacional</title>
+    
+    <!-- Google Fonts Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* =========================================================
+           1. VARIABLES GLOBALES (TWILIGHT THEME & APPLE INTELLIGENCE)
+           ========================================================= */
+        :root {
+            /* Base oscura elegante (Slate deep) */
+            --bg-color: #1e293b; 
+            --text-light: #ffffff;
+            --text-dim: #e2e8f0;
+            
+            /* Neones Fluidos Vivos */
+            --neon-blue: #0055ff;
+            --neon-emerald: #10b981;
+            --neon-pink: #ff2a85;
+            --neon-amber: #ff9d00;
+            --neon-purple: #b366ff; 
+            --neon-cyan: #00e5ff;
+
+            /* Variable dinámica para el Aura del Modal */
+            --modal-accent: #00e5ff;
+
+            /* Liquid Glassmorphism (visionOS style) */
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(40px);
+            --glass-border-t: rgba(255, 255, 255, 0.4);
+            --glass-border-b: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 30px 60px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* ELIMINAR BARRAS DE DESPLAZAMIENTO A NIVEL GLOBAL */
+        ::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden; 
+            width: 100vw; height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* =========================================================
+           2. FONDO: LUZ LÍQUIDA VIVA (MEDUSAS EN MOVIMIENTO)
+           ========================================================= */
+        .liquid-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -3;
+            /* Gradiente de fondo plomizo elegante */
+            background: radial-gradient(circle at 50% 50%, #334155 0%, #0f172a 100%);
+        }
+
+        .orb {
+            position: absolute; 
+            opacity: 0.55; mix-blend-mode: screen;
+        }
+
+        /* Animaciones fluidas para los orbes de luz */
+        .orb-1 { background: var(--neon-blue); width: 60vw; height: 60vw; top: -15%; left: -10%; animation: medusa-1 25s infinite alternate ease-in-out; }
+        .orb-2 { background: var(--neon-emerald); width: 50vw; height: 50vw; bottom: -10%; right: -15%; animation: medusa-2 22s infinite alternate ease-in-out; opacity: 0.4; }
+        .orb-3 { background: var(--neon-pink); width: 55vw; height: 55vw; top: -5%; right: -5%; opacity: 0.35; animation: medusa-3 28s infinite alternate ease-in-out; }
+        .orb-4 { background: var(--neon-amber); width: 45vw; height: 45vw; bottom: -15%; left: 5%; opacity: 0.35; animation: medusa-4 26s infinite alternate ease-in-out; }
+        .orb-5 { background: var(--neon-purple); width: 65vw; height: 65vw; top: 20%; left: 25%; opacity: 0.3; animation: medusa-5 32s infinite alternate ease-in-out; }
+
+        @keyframes medusa-1 {
+            0% { transform: scale(1) translate(0, 0) rotate(0deg); filter: blur(120px) hue-rotate(0deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            50% { transform: scale(1.15) translate(10vw, 8vh) rotate(45deg); filter: blur(140px) hue-rotate(20deg); border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; }
+            100% { transform: scale(0.9) translate(-5vw, 15vh) rotate(90deg); filter: blur(100px) hue-rotate(-10deg); border-radius: 30% 70% 50% 50% / 60% 40% 50% 40%; }
+        }
+        @keyframes medusa-2 {
+            0% { transform: scale(1) translate(0, 0) rotate(0deg); filter: blur(130px) hue-rotate(0deg); border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; }
+            50% { transform: scale(1.2) translate(-15vw, -10vh) rotate(-45deg); filter: blur(150px) hue-rotate(-20deg); border-radius: 30% 70% 60% 40% / 40% 30% 70% 60%; }
+            100% { transform: scale(0.95) translate(5vw, -20vh) rotate(-90deg); filter: blur(110px) hue-rotate(15deg); border-radius: 70% 30% 40% 60% / 60% 70% 30% 40%; }
+        }
+        @keyframes medusa-3 {
+            0% { transform: scale(0.9) translate(0, 0) rotate(0deg); filter: blur(110px) hue-rotate(0deg); border-radius: 60% 40% 50% 50% / 40% 60% 50% 40%; }
+            50% { transform: scale(1.2) translate(-10vw, 5vh) rotate(60deg); filter: blur(130px) hue-rotate(30deg); border-radius: 40% 60% 30% 70% / 60% 40% 70% 30%; }
+            100% { transform: scale(1) translate(15vw, -10vh) rotate(120deg); filter: blur(100px) hue-rotate(-20deg); border-radius: 50% 50% 70% 30% / 30% 70% 40% 60%; }
+        }
+        @keyframes medusa-4 {
+            0% { transform: scale(1.1) translate(0, 0) rotate(0deg); filter: blur(120px) hue-rotate(0deg); border-radius: 30% 70% 40% 60% / 50% 40% 60% 50%; }
+            50% { transform: scale(0.9) translate(15vw, -10vh) rotate(-60deg); filter: blur(140px) hue-rotate(-20deg); border-radius: 60% 40% 70% 30% / 40% 60% 30% 70%; }
+            100% { transform: scale(1.2) translate(-10vw, 15vh) rotate(-120deg); filter: blur(100px) hue-rotate(20deg); border-radius: 50% 50% 30% 70% / 70% 30% 60% 40%; }
+        }
+        @keyframes medusa-5 {
+            0% { transform: scale(1) translate(0, 0) rotate(0deg); filter: blur(140px) hue-rotate(0deg); border-radius: 40% 60% 50% 50% / 50% 50% 60% 40%; }
+            50% { transform: scale(1.2) translate(5vw, 15vh) rotate(90deg); filter: blur(160px) hue-rotate(25deg); border-radius: 70% 30% 60% 40% / 40% 70% 30% 60%; }
+            100% { transform: scale(0.85) translate(-15vw, -10vh) rotate(180deg); filter: blur(120px) hue-rotate(-15deg); border-radius: 30% 70% 40% 60% / 60% 40% 70% 30%; }
+        }
+
+        /* Halo interactivo del ratón */
+        .cursor-glow {
+            position: absolute; width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%);
+            border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%);
+            z-index: -1; transition: width 0.3s, height 0.3s;
+        }
+
+        /* =========================================================
+           3. ESTRUCTURA PRINCIPAL (SQUIRCLES Y MENÚ)
+           ========================================================= */
+        .app-container {
+            width: 100%; height: 100%; display: flex; flex-direction: column;
+            align-items: center; justify-content: space-between; padding: 40px;
+            position: relative; z-index: 10;
+        }
+
+        .header { text-align: center; margin-top: 15px; animation: slideDown 1s ease-out; }
+        .badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 8px 24px; border-radius: 30px; background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.25); font-size: 13px; font-weight: 800;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+            backdrop-filter: blur(15px); color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .header h1 {
+            font-family: 'Outfit', sans-serif; font-weight: 800; line-height: 1.1; margin-bottom: 12px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .header h1 .title-main {
+            font-size: 50px; background: linear-gradient(135deg, #ffffff, #94a3b8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .header p { 
+            font-size: 18px; color: var(--text-dim); font-weight: 300; max-width: 950px; 
+            margin: 0 auto; line-height: 1.5; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .header p strong { color: #fff; font-weight: 600; }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Cuadrícula de Aplicaciones (Squircles) */
+        .interactive-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;
+            max-width: 1000px; margin: auto; animation: fadeInScale 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .squircle {
+            width: 175px; height: 175px;
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border-top: 1px solid var(--glass-border-t); border-left: 1px solid var(--glass-border-t);
+            border-bottom: 1px solid var(--glass-border-b); border-right: 1px solid var(--glass-border-b);
+            border-radius: 45px; box-shadow: var(--glass-shadow);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            cursor: pointer; position: relative; overflow: hidden; transition: transform 0.1s; padding: 15px;
+        }
+
+        .squircle::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, transparent 70%);
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+
+        .squircle:hover::after { opacity: 1; }
+        .squircle i { font-size: 44px; margin-bottom: 12px; transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .squircle span { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; transition: 0.3s; color: #fff; line-height: 1.2;}
+        .squircle:hover i { transform: translateY(-5px) scale(1.1); filter: drop-shadow(0 0 20px currentColor); }
+
+        /* =========================================================
+           4. MODAL Y EFECTO APPLE INTELLIGENCE (AURA AMORFA)
+           ========================================================= */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; z-index: 1000;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .glass-modal {
+            width: 90%; max-width: 950px;
+            background: rgba(30, 41, 59, 0.4); 
+            backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px);
+            /* Borde glow reactivo al color */
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            border-radius: 40px; padding: 45px 55px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 20px var(--modal-accent), inset 0 1px 1px rgba(255,255,255,0.4);
+            transform: scale(0.9) translateY(20px); opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* * AURA APPLE INTELLIGENCE LENTA Y MAJESTUOSA * */
+        .glass-modal::before,
+        .glass-modal::after {
+            content: ''; position: absolute; z-index: -1; pointer-events: none;
+            opacity: 0; transition: opacity 0.8s ease;
+        }
+
+        /* Aura exterior */
+        .glass-modal::before {
+            inset: -25px; border-radius: 65px; 
+            background: 
+                radial-gradient(ellipse at 0% 0%, var(--neon-cyan) 0%, transparent 60%),
+                radial-gradient(ellipse at 100% 0%, var(--neon-purple) 0%, transparent 60%),
+                radial-gradient(ellipse at 100% 100%, var(--neon-pink) 0%, transparent 60%),
+                radial-gradient(ellipse at 0% 100%, var(--modal-accent) 0%, transparent 60%);
+            background-size: 200% 200%; filter: blur(40px); 
+            animation: siri-fire 25s ease-in-out infinite alternate;
+        }
+
+        /* Núcleo interior */
+        .glass-modal::after {
+            inset: -5px; border-radius: 50px; 
+            background: 
+                radial-gradient(ellipse at 100% 100%, var(--neon-cyan) 0%, transparent 60%),
+                radial-gradient(ellipse at 0% 100%, var(--neon-purple) 0%, transparent 60%),
+                radial-gradient(ellipse at 0% 0%, var(--neon-pink) 0%, transparent 60%),
+                radial-gradient(ellipse at 100% 0%, var(--modal-accent) 0%, transparent 60%);
+            background-size: 200% 200%; filter: blur(25px); 
+            animation: siri-fire 20s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes siri-fire {
+            0% { background-position: 0% 0%; opacity: 0.6; transform: scale(1); }
+            25% { background-position: 100% 0%; opacity: 0.8; transform: scale(1.02); }
+            50% { background-position: 100% 100%; opacity: 0.6; transform: scale(1); }
+            75% { background-position: 0% 100%; opacity: 0.8; transform: scale(0.98); }
+            100% { background-position: 0% 0%; opacity: 0.6; transform: scale(1); }
+        }
+
+        .modal-overlay.active .glass-modal { transform: scale(1) translateY(0); opacity: 1; }
+        .modal-overlay.active .glass-modal::before { opacity: 0.75; }
+        .modal-overlay.active .glass-modal::after { opacity: 0.85; }
+
+        /* Botón de Cerrar */
+        .close-btn {
+            position: absolute; top: 30px; right: 30px; width: 45px; height: 45px;
+            border-radius: 50%; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4);
+            color: #fff; font-size: 20px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.3s; z-index: 20;
+        }
+        .close-btn:hover { background: rgba(255,255,255,0.9); color: var(--bg-color); transform: rotate(90deg) scale(1.1); box-shadow: 0 0 20px rgba(255,255,255,0.5); }
+
+        /* Estilos Internos del Modal (Letras ajustadas para evitar Scroll) */
+        .modal-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 15px; }
+        .modal-icon { font-size: 35px; text-shadow: 0 0 20px currentColor;}
+        .modal-title { font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 800; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        
+        .modal-body { font-size: 15px; color: #f8fafc; line-height: 1.6; position: relative; z-index: 10; font-weight: 300; text-shadow: 0 2px 4px rgba(0,0,0,0.6);}
+        .modal-body p { margin-bottom: 12px; }
+        .modal-body strong { color: #fff; font-weight: 600; }
+        
+        .modal-list { list-style: none; margin-top: 15px; }
+        .modal-list li { margin-bottom: 10px; padding-left: 25px; position: relative; }
+        
+        /* Bullet Chevron Minimalista */
+        .modal-list li::before { 
+            content: '❯'; position: absolute; left: 0; top: 1px; 
+            color: var(--modal-accent); font-size: 14px; font-weight: 900; 
+            text-shadow: 0 0 10px var(--modal-accent);
+        }
+
+        /* =========================================================
+           5. DOCK INFERIOR (ESTILO MAC OS)
+           ========================================================= */
+        .mac-dock {
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255,255,255,0.2); border-top: 1px solid rgba(255,255,255,0.4);
+            padding: 12px 30px; border-radius: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: slideUp 1s ease-out 0.6s both;
+            width: 100%; max-width: 1350px;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Ajuste extremo para que entren todos en una línea */
+        .team { display: flex; gap: 6px; flex-wrap: nowrap; align-items: center; } 
+        .team-label { font-weight: 800; letter-spacing: 1px; color: #fff; margin-right: 2px; font-size: 11px;}
+        .team-member {
+            background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 20px;
+            font-size: 10.5px; font-weight: 600; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15);
+            display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap;
+        }
+        .team-member:hover { background: rgba(255,255,255,0.2); color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3);}
+        .team-member i { color: var(--neon-cyan); }
+
+        .actions { display: flex; gap: 15px; }
+        .btn-link {
+            text-decoration: none; padding: 10px 20px; border-radius: 30px; font-weight: 700;
+            font-family: 'Outfit', sans-serif; font-size: 13px; display: flex; align-items: center; gap: 8px;
+            transition: 0.3s; cursor: pointer; color: #fff; white-space: nowrap;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple)); 
+            border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 0 15px rgba(0,229,255,0.4);
+        }
+        .btn-link:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 0 25px rgba(0,229,255,0.6); filter: brightness(1.1); }
+
+    </style>
+</head>
+<body>
+
+    <!-- FONDO LÍQUIDO VIVO (MEDUSAS EN MOVIMIENTO) -->
+    <div class="liquid-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+    </div>
+    
+    <!-- HALO DEL RATÓN -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <div class="app-container">
+        
+        <!-- CABECERA -->
+        <div class="header">
+            <div class="badge"><i class="fa-solid fa-earth-europe" style="color: var(--neon-cyan);"></i> Grupo GO5</div>
+            <h1>
+                <span class="title-main">PROYECTO: ESTUDIO DE MERCADO INTERNACIONAL</span>
+            </h1>
+            <p>Estrategia integral para la exportación y comercialización de <strong>vehículos eléctricos</strong> hacia Chile. Un análisis 360º de prospección, marketing operativo, finanzas y plan de comunicación para la entrada en el mercado.</p>
+        </div>
+
+        <!-- SQUIRCLES INTERACTIVOS (MENÚ PRINCIPAL) -->
+        <div class="interactive-grid">
+            
+            <div class="squircle" style="color: var(--neon-cyan);" onclick="openModal('presentacion')">
+                <i class="fa-solid fa-flag"></i>
+                <span>1. Presentación y Objetivos</span>
+            </div>
+            
+            <div class="squircle" style="color: var(--neon-emerald);" onclick="openModal('resultados')">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>2. Resultados y Puntos Fuertes</span>
+            </div>
+            
+            <div class="squircle" style="color: var(--neon-pink);" onclick="openModal('dificultades')">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>3. Dificultades y Retos</span>
+            </div>
+            
+            <div class="squircle" style="color: var(--neon-purple);" onclick="openModal('continuidad')">
+                <i class="fa-solid fa-rocket"></i>
+                <span>4. Continuidad del Proyecto</span>
+            </div>
+            
+            <div class="squircle" style="color: var(--neon-amber);" onclick="openModal('reflexion')">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>5. Reflexión y Conclusión</span>
+            </div>
+
+        </div>
+
+        <!-- DOCK INFERIOR (EN UNA LÍNEA, AJUSTADO PARA 5 NOMBRES COMPLETOS) -->
+        <div class="mac-dock">
+            <div class="team">
+                <div class="team-label">EQUIPO:</div>
+                <div class="team-member"><i class="fa-solid fa-user"></i> Yuritzi Vergara Téllez</div>
+                <div class="team-member"><i class="fa-solid fa-user"></i> Cristian M. Malpica Torres</div>
+                <div class="team-member"><i class="fa-solid fa-user"></i> Beatriz Muñoz López</div>
+                <div class="team-member"><i class="fa-solid fa-user"></i> Virginia Guillén Alonso</div>
+                <div class="team-member"><i class="fa-solid fa-user"></i> Carla Puig Ventura</div>
+            </div>
+            <div class="actions">
+                <a href="https://sites.google.com/uoc.edu/memoriadigital-go5?usp=sharing" target="_blank" class="btn-link">
+                    <i class="fa-solid fa-globe"></i> Ver Google Sites
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- EL MODAL DE CRISTAL LÍQUIDO CON EL AURA "APPLE INTELLIGENCE" -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="glass-modal">
+            <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header">
+                <i class="modal-icon" id="modalIcon"></i>
+                <h2 class="modal-title" id="modalTitle">Título</h2>
+            </div>
+            <div class="modal-body" id="modalContent">
+                <!-- El contenido se inyecta dinámicamente por JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS MÁGICOS -->
+    <script>
+        // 1. Efecto Halo del cursor
+        const cursorGlow = document.getElementById('cursorGlow');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let glowX = mouseX, glowY = mouseY;
+
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function animateGlow() {
+            glowX += (mouseX - glowX) * 0.1; glowY += (mouseY - glowY) * 0.1;
+            cursorGlow.style.left = `${glowX}px`; cursorGlow.style.top = `${glowY}px`;
+            requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+
+        // 2. Efecto Magnético en Squircles
+        const squircles = document.querySelectorAll('.squircle');
+        squircles.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                
+                const moveX = ((x / rect.width) - 0.5) * 30;
+                const moveY = ((y / rect.height) - 0.5) * 30;
+
+                btn.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = `translate(0px, 0px) scale(1)`;
+            });
+        });
+
+        // 3. Base de Datos del Contenido (Proyecto Coches Eléctricos a Chile)
+        const contentData = {
+            'presentacion': {
+                title: "1. Presentación y Objetivos",
+                icon: "fa-solid fa-flag",
+                color: "#00e5ff", /* Cyan */
+                html: `
+                    <p>Presentamos nuestro Estudio de Mercado Internacional para la exportación y comercialización de <strong>vehículos eléctricos</strong>. Hemos analizado diversas alternativas y hemos seleccionado <strong>Chile</strong> como el mercado estratégico ideal para nuestra entrada en el continente americano.</p>
+                    <ul class="modal-list">
+                        <li><strong>Tema del proyecto:</strong> Desarrollar una estrategia comercial, logística, financiera y de comunicación para introducir de manera competitiva nuestros coches eléctricos en el mercado chileno.</li>
+                        <li><strong>Objetivo principal:</strong> Diseñar un plan de internacionalización sólido, estableciendo canales de distribución fiables y un posicionamiento de marca claro, minimizando los riesgos comerciales y de divisa.</li>
+                        <li><strong>Ideas fundamentales:</strong> Prospección y criba de mercados, definición del Marketing Mix (4Ps), cálculo de precios de exportación (Incoterms), selección de medios de pago internacionales y plan de comunicación y posicionamiento corporativo.</li>
+                    </ul>`
+            },
+            'resultados': {
+                title: "2. Resultados y Puntos Fuertes",
+                icon: "fa-solid fa-chart-pie",
+                color: "#10b981", /* Emerald */
+                html: `
+                    <p>El proyecto ha demostrado que el éxito de la exportación exige una alineación perfecta entre la logística, el marketing operativo y la ingeniería financiera para proteger la rentabilidad.</p>
+                    <ul class="modal-list">
+                        <li><strong>Selección del mercado:</strong> Chile fue elegido por su estabilidad económica, acuerdos de libre comercio, incentivos gubernamentales y un fuerte impulso hacia la electromovilidad (respaldado por la normativa SEC).</li>
+                        <li><strong>Marketing Operativo (4Ps):</strong> Adaptamos el producto a las normativas locales y definimos políticas de precio competitivas analizando los márgenes bajo distintos Incoterms (ej. FCA vs DDP) y canales de distribución.</li>
+                        <li><strong>Plan de Comunicación:</strong> Diseñamos una estrategia orientada a crear confianza y posicionamiento de marca en un sector tecnológico de alto valor.</li>
+                        <li><strong>Puntos Fuertes (Finanzas y Seguridad):</strong> Identificamos los mecanismos clave (como el crédito documentario) y las coberturas (seguros de cambio) para mitigar drásticamente el riesgo de fluctuación entre el peso chileno (CLP), el euro (EUR) o el dólar (USD).</li>
+                    </ul>`
+            },
+            'dificultades': {
+                title: "3. Dificultades y Retos",
+                icon: "fa-solid fa-triangle-exclamation",
+                color: "#ff2a85", /* Pink */
+                html: `
+                    <p>Introducir vehículos eléctricos en Latinoamérica supone afrontar barreras significativas tanto logísticas como de percepción del mercado que nuestro plan debe mitigar.</p>
+                    <ul class="modal-list">
+                        <li><strong>Competencia Consolidada:</strong> Nos enfrentamos a la presencia dominante de gigantes como Nissan, fabricantes emergentes chinos y líderes tecnológicos como Tesla. Esto exige un posicionamiento de marca impecable.</li>
+                        <li><strong>Infraestructura en Expansión:</strong> Aunque Chile lidera la región, la red de electrolineras aún se encuentra en desarrollo. Este factor puede generar "ansiedad de autonomía" en el consumidor final, siendo un reto clave para la adopción masiva.</li>
+                        <li><strong>Riesgo Financiero y Cambiario:</strong> Operar en diferentes divisas nos expone a la volatilidad del FOREX. Las decisiones del BCE u otros bancos centrales pueden alterar radicalmente nuestros márgenes si no empleamos coberturas adecuadas.</li>
+                        <li><strong>Complejidad Logística:</strong> El transporte transoceánico de vehículos y baterías requiere de un control riguroso de aduanas, aranceles y normativas de seguridad específicas en destino.</li>
+                    </ul>`
+            },
+            'continuidad': {
+                title: "4. Continuidad del Proyecto",
+                icon: "fa-solid fa-rocket",
+                color: "#b366ff", /* Purple */
+                html: `
+                    <p>La entrada en Chile no es el final del proceso, sino que se plantea como un "hub" estratégico para validar el modelo antes de expandirse por el resto de América Latina.</p>
+                    <ul class="modal-list">
+                        <li><strong>Escalabilidad Regional:</strong> Una vez consolidados la logística, el cumplimiento normativo y el canal de ventas en Chile, el modelo de negocio es replicable en países con políticas incipientes de electromovilidad, como Colombia o Uruguay.</li>
+                        <li><strong>Partnerships Estratégicos:</strong> Existe un alto potencial en la creación de alianzas con empresas locales de energía para ofrecer al cliente soluciones "llave en mano" (vehículo + punto de recarga doméstico instalado).</li>
+                        <li><strong>Desarrollo del segmento B2B:</strong> Ampliar las líneas de negocio para captar flotas corporativas, empresas de última milla, renting y programas de modernización del transporte público o privado de grandes compañías.</li>
+                    </ul>`
+            },
+            'reflexion': {
+                title: "5. Reflexión y Conclusión",
+                icon: "fa-solid fa-lightbulb",
+                color: "#ff9d00", /* Amber */
+                html: `
+                    <p>Este proyecto nos ha permitido constatar que el proceso de internacionalización es un rompecabezas complejo y fascinante. No basta con poseer un vehículo puntero o competitivo en origen; el éxito final recae en dominar las variables aduaneras, elegir los Incoterms adecuados, asegurar los cobros y adaptar culturalmente nuestra comunicación.</p>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.08); border-left: 4px solid var(--neon-amber); border-radius: 0 12px 12px 0;">
+                        <p style="margin-bottom: 0;"><strong>Conclusión:</strong> El mercado chileno ofrece un ecosistema maduro y una oportunidad real y palpable para los vehículos eléctricos. Nuestro estudio demuestra la viabilidad del proyecto de exportación mediante una estrategia de penetración rigurosa, protegiendo los márgenes comerciales y minimizando la exposición a los riesgos inherentes del comercio internacional.</p>
+                    </div>`
+            }
+        };
+
+        // 4. Lógica de Apertura/Cierre del Modal
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalContent = document.getElementById('modalContent');
+
+        function openModal(id) {
+            const data = contentData[id];
+            
+            // Inyectar datos en modal
+            modalTitle.textContent = data.title;
+            modalIcon.className = `modal-icon ${data.icon}`;
+            // Asigna el color dinámico al icono
+            modalIcon.style.color = data.color;
+            
+            // Refrescar el CSS color del pseudo-elemento de la lista y el Aura dinámicamente
+            document.documentElement.style.setProperty('--modal-accent', data.color); 
+            modalContent.innerHTML = data.html;
+
+            // Mostrar modal con efecto
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        // Cerrar al hacer clic fuera del modal
+        modalOverlay.addEventListener('click', (e) => {
+            if(e.target === modalOverlay) closeModal();
+        });
+
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape') closeModal();
+        });
+
+    </script>
+</body>
+</html>
